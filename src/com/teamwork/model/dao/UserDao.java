@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.teamwork.model.bean.User;
+
 public class UserDao {
 	
 	static public boolean checkEmail(String email)
 	{
 		Connection conn = ConnectionProvider.getConnection();
-		System.out.println(conn);
 		String sql = "select * from khachhang where email=? ";
 		
 		try {
@@ -28,5 +29,8 @@ public class UserDao {
 		return false;
 		
 	}
+	
+	
+	
 
 }

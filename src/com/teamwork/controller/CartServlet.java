@@ -27,10 +27,12 @@ public class CartServlet extends HttpServlet {
 	}
 
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response1) throws ServletException, IOException {
 		HttpSession session =  request.getSession();
 		String command = request.getParameter("command");
+		
 		String productID = request.getParameter("productID");
+	
 		Cart cart = (Cart) session.getAttribute("cart");
 		try {
 			
@@ -47,18 +49,28 @@ public class CartServlet extends HttpServlet {
 				{
 					cart.insertToCart(idProduct, new Item(product, 1));
 				}
+				response1.sendRedirect("index.jsp");
 				break;
+			case "remove":
+				cart.removeToCart(idProduct);
 				
-				
-				
+				response1.sendRedirect("checkout.jsp");
+				break;
+			case "removeall":
+				cart.removeALLToCart();
+				response1.sendRedirect("index.jsp");
+				break;
+		
+			
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("jndex.jsp");
+			response1.sendRedirect("index.jsp");
+			
 		}
 		session.setAttribute("cart", cart);
-		response.sendRedirect("index.jsp");
+		
 	}
 	
 

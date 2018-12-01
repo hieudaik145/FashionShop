@@ -177,7 +177,7 @@
 						</script>
 						<!--quantity-->
 
-						<a href="#" class="add-to item_add hvr-skew-backward">Add to
+						<a href="CartServlet?command=plus&productID=<%=product.getProductID() %>" class="add-to item_add hvr-skew-backward">Add to
 							cart</a>
 						<div class="clearfix"></div>
 					</div>

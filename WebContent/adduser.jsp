@@ -1,3 +1,4 @@
+<%@page import="com.teamwork.model.dao.LoginDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -16,6 +17,7 @@
 		int i = RegisterDao.register(u);
 		if(i>0)
 		{	
+			LoginDao.getDataKH(u);
 			session.setAttribute("user", u);
 			response.sendRedirect("index.jsp");
 		}
@@ -25,7 +27,6 @@
 			RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
 			rd.forward(request, response);
 		}
-	
 	%>
 
 </body>

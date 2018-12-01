@@ -15,6 +15,7 @@
 		boolean result = LoginDao.CheckLogin(u);
 		if(result)
 		{
+			LoginDao.getDataKH(u);
 			session.setAttribute("user", u);
 			response.sendRedirect("index.jsp");
 			
@@ -25,8 +26,7 @@
 			request.setAttribute("err", "Tên đăng nhập or mật khẩu không đúng");
 			RequestDispatcher rd =  request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
-			
-			
+
 		}
 	%>
 	

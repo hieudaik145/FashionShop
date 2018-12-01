@@ -1,11 +1,17 @@
 package com.teamwork.model.dao;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.teamwork.model.bean.Item;
 
 public class Cart {
+	
+	Locale localeVN = new Locale("vi", "VN");
+	NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 	
 	private HashMap<Long, Item> cartItem;
 
@@ -42,7 +48,7 @@ public class Cart {
 		}
 	}
 	
-	public void removeToCart(Long key, Item item)
+	public void removeToCart(Long key)
 	{
 		boolean bln = cartItem.containsKey(key);
 		if(bln)
@@ -50,13 +56,17 @@ public class Cart {
 			cartItem.remove(key);
 		}
 	}
-	
+	public void removeALLToCart()
+	{
+		cartItem.clear();
+	}
 	public int countItem()
 	{
 		int count = 0; 
 		count= cartItem.size();
 		return count;
 	}
+	
 	
 	public double total()
 	{
@@ -66,6 +76,12 @@ public class Cart {
 			count +=list.getValue().getProduct().getProductPrice() * list.getValue().getQuantity();
 		}
 		return count;
+	}
+	
+	
+	public String format(double count)
+	{
+		return currencyVN.format(count);
 	}
 
 }

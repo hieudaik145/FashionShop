@@ -24,6 +24,7 @@ public class ProductDao {
 			product.setProductName(rs.getString("product_name"));
 			product.setProductImage(rs.getString("product_image"));
 			product.setProductPrice(rs.getDouble("product_price"));
+			product.setProductPriceOld(rs.getDouble("price_old"));
 			product.setProductDescription(rs.getString("product_description"));
 			product.setProductOverview(rs.getString("product_overview"));
 			product.setProductReview(rs.getString("product_review"));
@@ -33,6 +34,7 @@ public class ProductDao {
 		
 		return list;
 	}
+	
 	
 	public Product getProduct(long product_id) throws SQLException
 	{
@@ -47,6 +49,7 @@ public class ProductDao {
 			product.setProductName(rs.getString("product_name"));
 			product.setProductImage(rs.getString("product_image"));
 			product.setProductPrice(rs.getDouble("product_price"));
+			product.setProductPriceOld(rs.getDouble("price_old"));
 			product.setProductDescription(rs.getString("product_description"));
 			product.setProductImage1(rs.getString("product_image1"));
 			product.setProductImage2(rs.getString("product_image2"));

@@ -1,32 +1,42 @@
 
 <%@page import="com.teamwork.model.dao.Cart"%>
-<%@page import="com.teamwork.model.dao.CategoryDao, com.teamwork.model.dao.CategoryMenDao"%>
+<%@page
+	import="com.teamwork.model.dao.CategoryDao, com.teamwork.model.dao.CategoryMenDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title>header</title>
 </head>
 <body>
-	<%@page import="com.teamwork.model.bean.Category,com.teamwork.model.bean.CategoryMen" %>
+	
+	<%@page
+		import="com.teamwork.model.bean.Category,com.teamwork.model.bean.CategoryMen"%>
 	<%
 		CategoryDao categoryDao = new CategoryDao();
 		CategoryMenDao categoryMenDao = new CategoryMenDao();
-		
 	%>
-
+	<%-- --%>
 	<%
-		User user=null;
-		if(session.getAttribute("user")!=null)
-		{
-			user= (User) session.getAttribute("user");
+		User user = null;
+		if (session.getAttribute("user") != null) {
+			user = (User) session.getAttribute("user");
 		}
 	%>
-	
+
+	<%--chuc nang gio hang --%>
+	<%
+		Cart cart = (Cart) session.getAttribute("cart");
+		if (cart == null) {
+			cart = new Cart();
+			session.setAttribute("cart", cart);
+		}
+	%>
+
 	<div class="header">
 		<div class="container">
 			<div class="head">
@@ -39,15 +49,21 @@
 			<div class="container">
 				<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul>
-						<%if(user!=null){ %>
-							<li><a href="login.jsp"><%= user.getEmail() %></a></li>
-							<li><a href="logout.jsp">Logout</a></li>
-							<li><a href="checkout.jsp">Checkout</a></li>
-						<%} else{ %>
+						<%
+							if (user != null) {
+						%>
+						<li><a href="QuanLyTaiKhoan.jsp"><%=user.getUsername()%></a></li>
+						<li><a href="logout.jsp">Logout</a></li>
+						<li><a href="checkout.jsp">Checkout</a></li>
+						<%
+							} else {
+						%>
 						<li><a href="login.jsp">Login</a></li>
 						<li><a href="register.jsp">Register</a></li>
 						<li><a href="checkout.jsp">Checkout</a></li>
-						<%} %>
+						<%
+							}
+						%>
 					</ul>
 				</div>
 
@@ -95,24 +111,26 @@
 										<div class="menu-top">
 											<div>
 												<div class="h_nav">
-													<h4 style="padding-bottom: 30px;text-align: center;">Thời Trang Nữ</h4>
-													
-													<% 
-														for(Category c: categoryDao.getListCategory()){
-														
+													<h4 style="padding-bottom: 30px; text-align: center;">Thời
+														Trang Nữ</h4>
+													<%--lay danh sach product theo ten danh muc --%>
+													<%
+														for (Category c : categoryDao.getListCategory()) {
 													%>
-												<ul style="display:inline-table;text-decoration: none;list-style: none;border: none;list-style-type: none; ">
-														<li><a href="product.jsp?category=<%=c.getCategory_ID()%>"><%=c.getCategory_Name() %></a></li>
-												</ul>
+													<ul
+														style="display: inline-table; text-decoration: none; list-style: none; border: none; list-style-type: none;">
+														<li><a
+															href="product.jsp?category=<%=c.getCategory_ID()%>"><%=c.getCategory_Name()%></a></li>
+													</ul>
 													<%
 														}
 													%>
-													
-													
+
+
 												</div>
 											</div>
-											
-			
+
+
 										</div>
 									</div></li>
 								<li class="dropdown mega-dropdown active"><a class="color2"
@@ -120,23 +138,24 @@
 										class="caret"></span></a>
 									<div class="dropdown-menu mega-dropdown-menu">
 										<div class="menu-top">
-											<div >
+											<div>
 												<div class="h_nav">
-													<h4 style="padding-bottom: 30px;text-align: center;">Thời Trang Nam</h4>
-														<% 
-														for(CategoryMen c: categoryMenDao.getListCategoryMan()){
-															
-															
+													<h4 style="padding-bottom: 30px; text-align: center;">Thời
+														Trang Nam</h4>
+													<%
+														for (CategoryMen c : categoryMenDao.getListCategoryMan()) {
 													%>
-												<ul style="display:inline-table;text-decoration: none;list-style: none;border: none;list-style-type: none;padding-bottom: 20px; ">
-														<li><a href="product.jsp?category=<%=c.getCategoryMen_ID()%>"><%=c.getCategoryMen_Name() %></a></li>
-												</ul>
+													<ul
+														style="display: inline-table; text-decoration: none; list-style: none; border: none; list-style-type: none; padding-bottom: 20px;">
+														<li><a
+															href="product.jsp?category=<%=c.getCategoryMen_ID()%>"><%=c.getCategoryMen_Name()%></a></li>
+													</ul>
 													<%
 														}
 													%>
 												</div>
 											</div>
-										
+
 										</div>
 									</div></li>
 								<li><a class="color3" href="product.html">Sale</a></li>
@@ -162,13 +181,13 @@
 						<a href="checkout.jsp">
 							<h3>
 								<div class="total">
-									<span class="simpleCart_total"></span>
+									<span><%=cart.format(cart.total())%></span>
 								</div>
 								<img src="images/cart.png" alt="" />
 							</h3>
 						</a>
 						<p>
-							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
+							<a href="CartServlet?command=removeall&productID=0">Empty Cart</a>
 						</p>
 
 					</div>
@@ -207,6 +226,7 @@
 
 						});
 					</script>
+					
 					<!----->
 				</div>
 				<div class="clearfix"></div>

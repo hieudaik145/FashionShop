@@ -1,3 +1,5 @@
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page import="com.teamwork.model.dao.Cart"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -16,11 +18,22 @@
 			if(request.getParameter("category")!=null)
 			{
 				category_id=request.getParameter("category");
-			}
-		
-		Cart cart = (Cart) session.getAttribute("cart");
-		
+			}	
 	%>
+	<%
+		Cart cart =(Cart) session.getAttribute("cart");
+		if(cart == null)
+		{
+			cart = new Cart();
+			session.setAttribute("cart", cart);
+		}
+	%>
+	<%-- Tao format ep thanh kieu tien te vnd --%>
+	<%
+		Locale localeVN = new Locale("vi","VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+	%>
+	
 
 	<jsp:include page="header.jsp"></jsp:include>
 
@@ -46,7 +59,7 @@
 					<div class="col-md-4 item-grid1 simpleCart_shelfItem">
 						<div class=" mid-pop">
 							<div class="pro-img">
-								<img src="<%=p.getProductImage() %>" class="img-responsive" alt="">
+								<img src="<%=p.getProductImage() %>" height="590" width="426" class="img-responsive" alt="">
 								<div class="zoom-icon ">
 									<a class="picture" href="images/pc.jpg" rel="title"
 										class="b-link-stripe b-animate-go  thickbox"><i
@@ -73,7 +86,7 @@
 								</div>
 								<div class="mid-2">
 									<p>
-										<label>$100.00</label><em class="item_price"><%=p.getProductPrice() %></em>
+										<label><%=currencyVN.format(p.getProductPriceOld()) %></label><em class="item_price"><%=currencyVN.format(p.getProductPrice()) %></em>
 									</p>
 									<div class="block">
 										<div class="starbox small ghosting"></div>

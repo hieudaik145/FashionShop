@@ -1,7 +1,7 @@
 package com.teamwork.model.bean;
 
 public class User {
-
+	private int userID;
 	private String username;
 	private int phone;
 	private String email;
@@ -37,7 +37,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 	
 		
 }

@@ -1,3 +1,4 @@
+<%@page import="com.teamwork.model.dao.ProductDao"%>
 <%@page import="com.teamwork.model.dao.Cart"%>
 <%@page import="com.teamwork.model.bean.Item"%>
 <%@page import="java.util.Map"%>
@@ -8,30 +9,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script>$(document).ready(function(c) {
-					$('.close1').on('click', function(c){
-						$('.cart-header').fadeOut('slow', function(c){
-							$('.cart-header').remove();
-						});
-						});	  
-					});
-			   </script>
-<script>$(document).ready(function(c) {
-					$('.close2').on('click', function(c){
-						$('.cart-header1').fadeOut('slow', function(c){
-							$('.cart-header1').remove();
-						});
-						});	  
-					});
-			   </script>
-<script>$(document).ready(function(c) {
-					$('.close3').on('click', function(c){
-						$('.cart-header2').fadeOut('slow', function(c){
-							$('.cart-header2').remove();
-						});
-						});	  
-					});
-			   </script>
+<script>
+	$(document).ready(function(c) {
+		$('.close1').on('click', function(c) {
+			$('.cart-header').fadeOut('slow', function(c) {
+				$('.cart-header').remove();
+			});
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(c) {
+		$('.close2').on('click', function(c) {
+			$('.cart-header1').fadeOut('slow', function(c) {
+				$('.cart-header1').remove();
+			});
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(c) {
+		$('.close3').on('click', function(c) {
+			$('.cart-header2').fadeOut('slow', function(c) {
+				$('.cart-header2').remove();
+			});
+		});
+	});
+</script>
 <title>checkout</title>
 </head>
 <body>
@@ -48,15 +52,14 @@
 		</div>
 	</div>
 
-	<% 
-		Cart cart = new Cart();
-		if(cart==null)
-		{
+	<%
+		Cart cart = (Cart) session.getAttribute("cart");
+		if (cart == null) {
 			cart = new Cart();
 			session.setAttribute("cart", cart);
 		}
 	%>
-	
+
 	<div class="check-out">
 		<div class="container">
 
@@ -67,38 +70,54 @@
 							<th class="table-grid">Item</th>
 
 							<th>Prices</th>
-							<th>Delivery</th>
+							<th>Quantity</th>
 							<th>Subtotal</th>
 						</tr>
-						<%for(Map.Entry<Long, Item> list : cart.getCartItem().entrySet()) { %>
+						<%
+							for (Map.Entry<Long, Item> list : cart.getCartItem().entrySet()) {
+						%>
 						<tr class="cart-header">
 
-							<td class="ring-in"><a href="single.html" class="at-in"><img
-									src="images/ch.jpg" class="img-responsive" alt=""></a>
+							<td class="ring-in"><a
+								href="single.jsp?productID=<%=list.getValue().getProduct().getProductID()%>"
+								class="at-in"><img
+									src="<%=list.getValue().getProduct().getProductImage()%>"
+									height="140" width="120" class="img-responsive" alt=""></a>
 								<div class="sed">
 									<h5>
-										<a href="single.html"><%=list.getValue().getProduct().getProductName() %></a>
+										<a
+											href="single.jsp?productID=<%=list.getValue().getProduct().getProductID()%>"><%=list.getValue().getProduct().getProductName()%></a>
 									</h5>
-									<p>(At vero eos et accusamus et iusto odio dignissimos
-										ducimus )</p>
+									<p><%=list.getValue().getProduct().getProductOverview()%></p>
 
 								</div>
 								<div class="clearfix"></div>
-								<div class="close1"></div></td>
-							<td>$100.00</td>
-							<td>FREE SHIPPING</td>
-							<td class="item_price">$100.00</td>
+								<div>
+									<a
+										href="CartServlet?command=remove&productID=<%=list.getValue().getProduct().getProductID()%>"
+										class="close1"></a>
+								</div></td>
+							<td><%=cart.format(list.getValue().getProduct().getProductPrice())%></td>
+							<td><%=list.getValue().getQuantity()%></td>
+							<td class="item_price"><%=cart.format(list.getValue().getProduct().getProductPrice() * list.getValue().getQuantity())%></td>
 							<td class="add-check"><a class="item_add hvr-skew-backward"
 								href="#">Add To Cart</a></td>
 						</tr>
-						<%} %>
-						
+						<%
+							}
+						%>
+
 
 					</table>
 				</div>
 			</div>
 			<div class="produced">
-				<a href="single.html" class="hvr-skew-backward">Produced To Buy</a>
+			<%if(cart.total()!=0) { %>
+				<b>Tổng tiền: <%=cart.format(cart.total()) %></b>
+				<a href="checkout-finish.jsp" class="hvr-skew-backward">Thanh Toán</a>
+			<%} else{ %>
+				<a href="index.jsp" class="hvr-skew-backward">Not Product </a>
+				<%} %>
 			</div>
 		</div>
 	</div>
