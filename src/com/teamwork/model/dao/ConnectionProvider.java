@@ -14,6 +14,7 @@ public class ConnectionProvider {
 		try {
 			Class.forName(DRIVER);
 			con=DriverManager.getConnection(DB_URL,User,Pass);
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();

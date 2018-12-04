@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2018 at 06:47 PM
+-- Generation Time: Dec 04, 2018 at 02:40 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -42,7 +42,7 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`bill_id`, `user_id`, `total`, `payment`, `adress`, `date`) VALUES
-(1543682948467, 1, 618500, 'Banking Plus', 'Tam Ky - Quang Nam', '2018-12-01 16:49:08');
+(1543682948467, 1, 618500, 'Banking Plus', 'Tam Kỳ - Quảng nam', '2018-12-01 16:49:08');
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `product_image`, `product_image1`, `product_image2`, `product_price`, `price_old`, `product_description`, `product_overview`, `product_additional`, `product_review`) VALUES
 (1, 0, 'Chân Váy Lime Orange -JO17810004-W', 'images/chanvay1.jpg', 'images/chanvay2.jpg', 'images/chanvay3.jpg', 399000, 450000, 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông', 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông', 'DỊCH VỤ & KHUYẾN MÃI LIÊN QUAN\r\nNhập mã TIKIYEUBAN10 giảm ngay 40k cho đơn hàng đầu tiên từ 400k thuộc các nhóm hàng Thời trang, Làm Đẹp & Sức Khỏe, Đồ Chơi, Mẹ và Bé và Hàng Tiêu Dùng - Thực Phẩm (trừ Tã, Bĩm, Sữa, Bia).Số lượng coupon có hạn, chương trình có thể kết thúc sớm khi hết lượt sử dụng coupon', 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông'),
 (5, 5, 'Áo Khoát Nam', 'images/pc7.jpg', NULL, NULL, 500, 0, NULL, NULL, '', NULL),
-(6, 2, 'Bánh Bèo Vô Dụng', NULL, NULL, NULL, 20, 0, NULL, NULL, NULL, NULL),
+(6, 2, '', NULL, NULL, NULL, 20, 0, NULL, NULL, NULL, NULL),
 (22, 1, 'product1', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (33, 2, 'Đồ Nội Y Nữ', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (34, 5, '\r\nÁo Khoát Nam \r\n\r\n \r\n\r\n', 'images/aokhoat01.jpg', 'images/aokhoat02.jpg', 'images/aokhoat03.jpg', 219000, 0, 'Thiết kế tinh tế với cổ bẻ; tay dài; đính nút bản to nổi bật;\r\n\r\nCá tính Kiểu dáng thời trang; đường chỉ may tỉ mỉ; tinh tế.\r\n\r\nMàu sắc : đen; xanh đen, xám\r\n\r\nKiểu dáng Trang nhã dễ dàng mix cùng các trang phục khác như áo thun; áo sơ mi\r\n\r\nChất liệu: dù cán 2 lớp dày vừa + lớp dù lót bên trong\r\n\r\nSize: M: 50 - 55kg, L:55 - 65kg , XL: 66 - 75kg', NULL, NULL, NULL);
